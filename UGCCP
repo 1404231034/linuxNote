@@ -1,0 +1,25 @@
+源码编译升级安装了gcc后，编译程序或运行其它程序时，有时会出现类似/usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.14' not found的问题。这是因为升级gcc时，生成的动态库没有替换老版本gcc的动态库导致的，将gcc最新版本的动态库替换系统中老版本的动态库即可解决。
+
+(1). 运行以下命令检查动态库：
+
+strings /usr/lib64/libstdc++.so.6 | grep GLIBC
+从输出可以看出，gcc的动态库还是旧版本的。说明出现这些问题，是因为升级gcc时，生成的动态库没有替换老版本gcc的动态库。
+
+(2). 执行以下命令，查找编译gcc时生成的最新动态库：
+
+find / -name "libstdc++.so*"
+
+将上面的最新动态库libstdc++.so.6.0.22复制到/usr/lib64目录下
+
+cd /usr/lib64
+
+cp /root/Downloads/gcc-6.1.0/gcc-build-6.1.0/stage1-x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6.0.22  ./
+(3). 删除原来软连接：
+
+rm -rf libstdc++.so.6
+(4). 将默认库的软连接指向最新动态库：
+
+ln -s libstdc++.so.6.0.22 libstdc++.so.6
+(5). 默认动态库升级完成。重新运行以下命令检查动态库：
+
+strings /usr/lib64/libstdc++.so.6 | grep GLIBC
