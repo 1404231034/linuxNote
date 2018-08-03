@@ -1,0 +1,32 @@
+一、安装
+
+一共有三种安装方式，由于其他两种不太方便，因此只介绍第一种二进制文件安装。
+1、首先官网下载nodejs安装压缩包。
+
+这里写图片描述
+2、下载完成后用ftp上传到Linux任意文件夹即可。我的是/home/lpc/data/software/node。然后进入到此文件夹。
+
+cd /home/lpc/data/software/node
+
+    
+
+3、在此目录下解压
+
+#tar xf node-v8.3.0-linux-x64.tar.xz
+
+
+4、解压后进入到解压后的文件夹。
+
+#cd node-v8.3.0-linux-x64
+
+
+5、设置node和npm为全局变量。
+
+#ln -s /home/lpc/data/software/node/node-v8.3.0-linux-x64/bin/node /usr/local/bin/node
+#ln -s /home/lpc/data/software/node/node-v8.3.0-linux-x64/bin/npm /usr/local/bin/npm
+
+
+6、随便进入到其他文件夹测试。
+
+#node -v
+#npm -v
